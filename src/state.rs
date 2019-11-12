@@ -237,7 +237,6 @@ impl SymmetricState {
     }
 }
 
-
 pub struct HandshakeState {
     ss:  SymmetricState,
     s:   Keypair,
@@ -278,6 +277,7 @@ impl HandshakeState {
         let rs = PublicKey::empty();
         HandshakeState{ss, s, e: Keypair::new_empty(), rs, re: PublicKey::empty(), psk}
     }
+
     pub(crate) fn write_message_a(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
         if in_out.len() < DHLEN {
             return Err(NoiseError::MissingneError);
@@ -325,7 +325,6 @@ impl HandshakeState {
         Ok((h, cs1, cs2))
     }
 
-
     pub(crate) fn read_message_a(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
         if in_out.len() < MAC_LENGTH+DHLEN {
             return Err(NoiseError::MissingreError);
@@ -372,6 +371,4 @@ impl HandshakeState {
         self.ss.clear();
         Ok((h, cs1, cs2))
     }
-
-
 }

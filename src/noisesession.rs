@@ -6,6 +6,7 @@ use crate::{consts::{HASHLEN, MAC_LENGTH, MAX_MESSAGE},
             error::NoiseError,
             state::{CipherState, HandshakeState},
             types::{Hash, Keypair, Psk, PublicKey}};
+
 /// A `NoiseSession` object is used to keep track of the states of both local
 /// and remote parties before, during, and after a handshake.
 ///
@@ -24,7 +25,6 @@ use crate::{consts::{HASHLEN, MAC_LENGTH, MAX_MESSAGE},
 ///   local or remote party.
 /// - `is_transport`: `bool` value that indicates whether a handshake has been
 ///   performed succesfully with a remote session and the session is in transport mode.
-
 pub struct NoiseSession {
     hs:  HandshakeState,
     h:   Hash,
@@ -38,6 +38,10 @@ impl NoiseSession {
     /// Returns `true` if a handshake has been successfully performed and the session is in transport mode, or false otherwise.
     pub fn is_transport(&self) -> bool {
         self.is_transport
+    }
+
+    pub fn is_initiator(&self) -> bool {
+        self.i
     }
 
     /// Clears `cs1`.
@@ -98,13 +102,10 @@ impl NoiseSession {
         None
     }
 
-
     /// Instantiates a `NoiseSession` object. Takes the following as parameters:
     /// - `initiator`: `bool` variable. To be set as `true` when initiating a handshake with a remote party, or `false` otherwise.
     /// - `prologue`: `Message` object. Could optionally contain the name of the protocol to be used.
     /// - `s`: `Keypair` object. Contains local party's static keypair.
-
-
     pub fn init_session(initiator: bool, prologue: &[u8], s: Keypair) -> NoiseSession {
         if initiator {
             NoiseSession{
@@ -154,7 +155,7 @@ impl NoiseSession {
             self.cs1 = temp.1;
             self.cs2 = temp.2;
             self.hs.clear();
-        } else if self.i {
+        } else if self.is_initiator() {
             self.cs1.write_message_regular(in_out)?;
         } else {
             self.cs2.write_message_regular(in_out)?;
@@ -189,7 +190,7 @@ impl NoiseSession {
                 self.cs1 = temp.1;
                 self.cs2 = temp.2;
                 self.hs.clear();
-        } else if self.i {
+        } else if self.is_initiator() {
             self.cs2.read_message_regular(in_out)?;
         } else {
                 self.cs1.read_message_regular(in_out)?;

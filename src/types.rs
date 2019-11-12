@@ -18,11 +18,11 @@ fn decode_str_32(s: &str) -> Result<[u8; DHLEN], NoiseError> {
             Ok(temp)
         }
         else {
-            return Err(NoiseError::InvalidInputError);
+            Err(NoiseError::InvalidInputError)
         }
     }
     else {
-        return Err(NoiseError::InvalidInputError);
+        Err(NoiseError::InvalidInputError)
     }
 }
 
@@ -76,7 +76,7 @@ impl Key {
     /// #   error::NoiseError,
     /// #   types::Key,
     /// # };
-    /// # use std::str::FromStr; 
+    /// # use std::str::FromStr;
     /// # fn try_main() -> Result<(), NoiseError> {
     ///     let empty_key1 = Key::from_str("0000000000000000000000000000000000000000000000000000000000000000")?;
     ///     let empty_key2 = Key::new();
@@ -206,7 +206,7 @@ impl std::str::FromStr for Psk {
     fn from_str(k: &str) -> Result<Self, NoiseError> {
         let psk = decode_str_32(k)?;
         if psk.len() > 32 {
-            
+
         }
         Ok(Self::from_bytes(psk))
     }
