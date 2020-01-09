@@ -86,9 +86,6 @@ impl Key {
     ///     assert!(!k.is_empty());
     /// #   Ok(())
     /// # }
-    /// # fn main() {
-    /// #   try_main().unwrap();
-    /// # }
     /// ```
     pub fn is_empty(&self) -> bool {
         constant_time_eq(&self.k[..], &EMPTY_KEY)
@@ -117,9 +114,6 @@ impl std::str::FromStr for Key {
     /// # fn try_main() -> Result<(), NoiseError> {
     ///     let k = Key::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893")?;
     /// #   Ok(())
-    /// # }
-    /// # fn main() {
-    /// #   try_main().unwrap();
     /// # }
     /// ```
     fn from_str(key: &str) -> Result<Self, NoiseError> {
@@ -168,9 +162,6 @@ impl Psk {
     ///     assert!(!k.is_empty());
     /// #   Ok(())
     /// # }
-    /// # fn main() {
-    /// #   try_main().unwrap();
-    /// # }
     /// ```
     pub fn is_empty(&self) -> bool {
         constant_time_eq(&self.psk[..], &EMPTY_KEY)
@@ -198,9 +189,6 @@ impl std::str::FromStr for Psk {
     /// # fn try_main() -> Result<(), NoiseError> {
     ///     let k = Psk::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893")?;
     /// #   Ok(())
-    /// # }
-    /// # fn main() {
-    /// #   try_main().unwrap();
     /// # }
     /// ```
     fn from_str(k: &str) -> Result<Self, NoiseError> {
@@ -255,9 +243,6 @@ impl PrivateKey {
     ///     assert!(!k.is_empty());
     /// #   Ok(())
     /// # }
-    /// # fn main() {
-    /// #   try_main().unwrap();
-    /// # }
     /// ```
     pub fn is_empty(&self) -> bool {
         constant_time_eq(&self.k[..], &EMPTY_KEY)
@@ -287,9 +272,6 @@ impl std::str::FromStr for PrivateKey {
     /// # fn try_main() -> Result<(), NoiseError> {
     ///     let k = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893")?;
     /// #   Ok(())
-    /// # }
-    /// # fn main() {
-    /// #   try_main().unwrap();
     /// # }
     /// ```
     fn from_str(key: &str) -> Result<Self, NoiseError> {
@@ -348,9 +330,6 @@ impl PublicKey {
     ///     assert!(!k.is_empty());
     /// #   Ok(())
     /// # }
-    /// # fn main() {
-    /// #   try_main().unwrap();
-    /// # }
     /// ```
     pub fn is_empty(&self) -> bool {
         constant_time_eq(&self.k[..], &EMPTY_KEY)
@@ -372,9 +351,6 @@ impl PublicKey {
     ///     let k = PublicKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893")?;
     ///     println!("{:?}", k.as_bytes());
     /// #   Ok(())
-    /// # }
-    /// # fn main() {
-    /// #   try_main().unwrap();
     /// # }
     /// ```
     fn from_str(key: &str) -> Result<Self, NoiseError> {
