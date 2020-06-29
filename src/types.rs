@@ -7,7 +7,6 @@ use crate::{
     error::NoiseError,
 };
 use hacl_star::curve25519;
-use rand;
 use zeroize::Zeroize;
 
 fn decode_str_32(s: &str) -> Result<[u8; DHLEN], NoiseError> {
