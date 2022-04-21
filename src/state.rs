@@ -350,6 +350,9 @@ impl HandshakeState {
             return Err(NoiseError::MissingrsError);
         }
         let (rs, in_out) = in_out.split_at_mut(MAC_LENGTH+DHLEN);
+        if in_out.len() < MAC_LENGTH {
+            return Err(NoiseError::MissingHsMacError);
+        }
         self.ss.decrypt_and_hash(rs)?;
         self.rs = PublicKey::from_bytes(from_slice_hashlen(rs))?;
         self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));
@@ -362,6 +365,9 @@ impl HandshakeState {
             return Err(NoiseError::MissingrsError);
         }
         let (rs, in_out) = in_out.split_at_mut(MAC_LENGTH+DHLEN);
+        if in_out.len() < MAC_LENGTH {
+            return Err(NoiseError::MissingHsMacError);
+        }
         self.ss.decrypt_and_hash(rs)?;
         self.rs = PublicKey::from_bytes(from_slice_hashlen(rs))?;
         self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));
